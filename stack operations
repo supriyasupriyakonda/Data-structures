@@ -1,0 +1,120 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+
+struct Stack 
+{
+    int data;
+    struct Stack *next;
+};
+
+struct Stack *top = NULL;
+
+void push(int data) 
+{
+    struct Stack *newNode =  (struct Stack* ) malloc(sizeof(struct stack*));
+    if(newNode == NULL) 
+	{
+        printf("Error: Stack overflow\n");
+        return;
+    }
+    newNode->data = data;
+    newNode->next = top;
+    top = newNode;
+}
+
+int pop() 
+{
+    if (top == NULL) 
+	{
+        printf("Error: Stack underflow\n");
+        return -1;
+    }
+    int data = top->data;
+    struct Stack *temp = top;
+    top = top->next;
+    free(temp);
+    return data;
+}
+
+int peek() {
+    if (top == NULL) {
+        printf("Error: Stack is empty\n");
+        return -1;
+    }
+    return top->data;
+}
+
+int search(int data) {
+    struct Stack *temp = top;
+    int count = 1;
+    while (temp != NULL) 
+	{
+        if (temp->data == data) 
+		{
+            return count;
+        }
+        count++;
+        temp = temp->next;
+    }
+    return -1;
+}
+
+void display() 
+{
+    struct Stack *temp = top;
+    if (temp == NULL) {
+        printf("Error: Stack is empty\n");
+        return;
+    }
+    printf("Stack elements are:\n");
+    while (temp != NULL) {
+        printf("%d\n", temp->data);
+        temp = temp->next;
+    }
+}
+
+int main() {
+    int choice, data;
+    while (1) {
+        printf("1. Push\n");
+        printf("2. Pop\n");
+        printf("3. Peek\n");
+        printf("4. Search\n");
+        printf("5. Display\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) 
+		{
+            case 1:
+                printf("Enter the data to be pushed: ");
+                scanf("%d", &data);
+                push(data);
+                break;
+            case 2:
+                printf("Popped element: %d\n", pop());
+                break;
+            case 3:
+                printf("Peek element: %d\n", peek());
+                break;
+            case 4:
+                printf("Enter the data to be searched: ");
+                scanf("%d", &data);
+                int result = search(data);
+                if (result == -1) 
+				{
+                    printf("Element not found\n");
+                } else {
+                    printf("Element found at position %d\n", result);
+                }
+                break;
+            case 5:
+                display();
+                break;
+            case 6:
+               exit(0);
+        }
+    }
+}
