@@ -1,0 +1,22 @@
+#include<stdio.h>
+int main()
+{
+	int a;
+	printf("enter a numbers=");
+	scanf("%d",&a);
+	if(a%2==0 && a>0)
+	  printf("it is a even number and a positive integer");
+    else if
+	(a%2==0 && a<0)
+	{
+		printf("Itis a even number and negative");
+	}
+	else if
+	(a%2!=0 && a>0)
+	{
+		printf("it is odd and positive");
+	}
+	else
+	printf("odd number and negative");
+	return 0;
+}
